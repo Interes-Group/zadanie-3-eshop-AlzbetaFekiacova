@@ -54,7 +54,13 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Product getProductById(Long id) {
-        return this.repository.getProductById(id);
+    public Product getProductById(Long id) throws ProductNotFoundException {
+        Product product = this.repository.getProductById(id);
+        if(product == null){
+            throw new ProductNotFoundException();
+        }
+
+        return product;
+
     }
 }

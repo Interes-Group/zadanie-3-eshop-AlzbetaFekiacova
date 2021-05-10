@@ -5,6 +5,6 @@ import java.util.List;
 public interface IProductService {
     List<Product> getAll();
     Product create(ProductRequest request);
-    Product getProductById(Long id);
+    Product getProductById(Long id) throws ProductNotFoundException;
 
 }
