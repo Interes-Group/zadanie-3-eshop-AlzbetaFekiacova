@@ -1,10 +1,9 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,5 +42,9 @@ public class ProductController {
     @GetMapping("/{id}/amount")
     public Amount getProductAmount(@PathVariable("id") Long id){
         return this.service.getProductAmount(id);
+    }
+    @PostMapping("/{id}/amount")
+    public Amount incrementAmount(@PathVariable("id") Long id, @RequestBody Amount amount){
+        return this.service.incrementAmount(id, amount);
     }
 }

@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.product;
 
 import java.util.List;
 
@@ -10,4 +10,6 @@ public interface IProductService {
     void deleteProduct(Long id);
 
     Amount getProductAmount(Long id);
+
+    Amount incrementAmount(Long id, Amount amount);
 }

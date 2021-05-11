@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3;
+package sk.stuba.fei.uim.oop.assignment3.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,5 +97,13 @@ public class ProductService implements IProductService {
         Amount a = new Amount();
         a.setAmount(product.getAmount());
         return a;
+    }
+
+    @Override
+    public Amount incrementAmount(Long id, Amount amount) {
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        Product product = optionalProduct.orElseThrow(NotFoundException::new);
+        product.setAmount(product.getAmount() + amount.getAmount());
+        return new Amount(product.getAmount());
     }
 }
