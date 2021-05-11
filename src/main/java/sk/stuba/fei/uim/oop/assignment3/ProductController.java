@@ -22,8 +22,8 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductResponse addProduct(@RequestBody ProductRequest request) {
-        return new ProductResponse(this.service.create(request));
+    public /*ProductResponse*/ ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest request) {
+        return new ResponseEntity<>(new ProductResponse(this.service.create(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -31,4 +31,17 @@ public class ProductController {
         return this.service.getProductById(id);
     }
 
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable ("id") Long id, @RequestBody UpdateBody updateBody){
+        Product p = this.service.getProductById(id);
+        return this.service.updateProduct(id, updateBody);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id){
+        this.service.deleteProduct(id);
+    }
+    @GetMapping("/{id}/amount")
+    public Amount getProductAmount(@PathVariable("id") Long id){
+        return this.service.getProductAmount(id);
+    }
 }

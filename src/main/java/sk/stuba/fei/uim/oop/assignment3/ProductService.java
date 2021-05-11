@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.support.ReflectivePropertyAccessor;
 import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
@@ -9,18 +8,19 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService implements IProductService{
+public class ProductService implements IProductService {
 
     private ProductRepository repository;
 
     @Autowired
-    public ProductService(ProductRepository repository){
+    public ProductService(ProductRepository repository) {
         this.repository = repository;
+
 
         Product product1 = new Product();
         product1.setAmount(10);
         product1.setDescription("new");
-        product1.setPrice(500);
+        product1.setPrice(500.0);
         product1.setName("prvy");
         product1.setUnit("ones");
 
@@ -30,7 +30,7 @@ public class ProductService implements IProductService{
         Product product2 = new Product();
         product2.setAmount(10);
         product2.setDescription("new");
-        product2.setPrice(500);
+        product2.setPrice(500.0);
         product2.setName("druhy");
         product2.setUnit("ones");
 
@@ -58,9 +58,44 @@ public class ProductService implements IProductService{
 
     @Override
     public Product getProductById(Long id) {
-       Optional<Product> optionalProduct = this.repository.findById(id);
-       Product product = optionalProduct.orElseThrow(NotFoundException::new);
-       return product;
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        return optionalProduct.orElseThrow(NotFoundException::new);
+    }
 
+//    private String name;
+//    private String description;
+//    private int amount;
+//    private String unit;
+//    private int price;
+//}
+
+    @Override
+    public Product updateProduct(Long id, UpdateBody updateBody) {
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        Product product = optionalProduct.orElseThrow(NotFoundException::new);
+        if (updateBody.getName() != null) {
+            product.setName(updateBody.getName());
+        }
+        if(updateBody.getDescription() != null){
+            product.setDescription(updateBody.getDescription());
+        }
+
+        return this.repository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        Product product = optionalProduct.orElseThrow(NotFoundException::new);
+        this.repository.delete(product);
+    }
+
+    @Override
+    public Amount getProductAmount(Long id) {
+        Optional<Product> optionalProduct = this.repository.findById(id);
+        Product product = optionalProduct.orElseThrow(NotFoundException::new);
+        Amount a = new Amount();
+        a.setAmount(product.getAmount());
+        return a;
     }
 }
