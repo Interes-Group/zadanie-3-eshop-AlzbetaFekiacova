@@ -1,9 +1,12 @@
 package sk.stuba.fei.uim.oop.assignment3;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.support.ReflectivePropertyAccessor;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService implements IProductService{
@@ -54,13 +57,10 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Product getProductById(Long id) throws ProductNotFoundException {
-        Product product = this.repository.getProductById(id);
-        if(product == null){
-            throw new ProductNotFoundException();
-        }
-
-        return product;
+    public Product getProductById(Long id) {
+       Optional<Product> optionalProduct = this.repository.findById(id);
+       Product product = optionalProduct.orElseThrow(NotFoundException::new);
+       return product;
 
     }
 }
