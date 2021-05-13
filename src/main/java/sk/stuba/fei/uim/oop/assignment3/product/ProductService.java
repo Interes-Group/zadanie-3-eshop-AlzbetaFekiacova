@@ -62,13 +62,6 @@ public class ProductService implements IProductService {
         return optionalProduct.orElseThrow(NotFoundException::new);
     }
 
-//    private String name;
-//    private String description;
-//    private int amount;
-//    private String unit;
-//    private int price;
-//}
-
     @Override
     public Product updateProduct(Long id, UpdateBody updateBody) {
         Optional<Product> optionalProduct = this.repository.findById(id);

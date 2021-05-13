@@ -7,5 +7,7 @@ public interface IShoppingCartService {
 
     void deleteShoppingCartById(Long id);
 
-    ShoppingCartResponse addProductToCart(Long id, CartItemRequest item);
+    ShoppingCart addProductToCart(Long id, CartItemRequest item);
+
+    String payForShopping(Long id);
 }

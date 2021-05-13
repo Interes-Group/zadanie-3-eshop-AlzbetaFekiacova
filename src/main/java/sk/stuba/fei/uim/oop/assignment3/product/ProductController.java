@@ -21,30 +21,32 @@ public class ProductController {
     }
 
     @PostMapping()
-    public /*ProductResponse*/ ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest request) {
+    public ResponseEntity<ProductResponse> addProduct(@RequestBody ProductRequest request) {
         return new ResponseEntity<>(new ProductResponse(this.service.create(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable("id") Long id) {
-        return this.service.getProductById(id);
+    public ProductResponse getProductById(@PathVariable("id") Long id) {
+        return new ProductResponse(this.service.getProductById(id));
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable ("id") Long id, @RequestBody UpdateBody updateBody){
-        Product p = this.service.getProductById(id);
-        return this.service.updateProduct(id, updateBody);
+    public ProductResponse updateProduct(@PathVariable("id") Long id, @RequestBody UpdateBody updateBody) {
+        return new ProductResponse(this.service.updateProduct(id, updateBody));
     }
+
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Long id){
+    public void deleteProduct(@PathVariable("id") Long id) {
         this.service.deleteProduct(id);
     }
+
     @GetMapping("/{id}/amount")
-    public Amount getProductAmount(@PathVariable("id") Long id){
+    public Amount getProductAmount(@PathVariable("id") Long id) {
         return this.service.getProductAmount(id);
     }
+
     @PostMapping("/{id}/amount")
-    public Amount incrementAmount(@PathVariable("id") Long id, @RequestBody Amount amount){
+    public Amount incrementAmount(@PathVariable("id") Long id, @RequestBody Amount amount) {
         return this.service.incrementAmount(id, amount);
     }
 }

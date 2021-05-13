@@ -14,13 +14,13 @@ public class ShoppingCartController {
     IShoppingCartService service;
 
     @PostMapping
-    public ResponseEntity<ShoppingCart> addCart(){
-        return new ResponseEntity<>(this.service.create(), HttpStatus.CREATED);
+    public ResponseEntity<ShoppingCartResponse> addCart(){
+        return new ResponseEntity<>(new ShoppingCartResponse(this.service.create()), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ShoppingCart getShoppingCartById(@PathVariable("id") Long id){
-        return this.service.getShoppingCartById(id);
+    public ShoppingCartResponse getShoppingCartById(@PathVariable("id") Long id){
+        return new ShoppingCartResponse(this.service.getShoppingCartById(id));
     }
     @DeleteMapping("/{id}")
     public void deleteShoppingCartById(@PathVariable("id") Long id){
@@ -29,7 +29,7 @@ public class ShoppingCartController {
 
     @PostMapping("/{id}/add")
     public ShoppingCartResponse addProductToCart(@PathVariable("id") Long id, @RequestBody CartItemRequest request) {
-        return this.service.addProductToCart(id, request);
+        return new ShoppingCartResponse(this.service.addProductToCart(id, request));
     }
     @GetMapping("/{id}/pay")
     public String payForShopping(@PathVariable("id") Long id){

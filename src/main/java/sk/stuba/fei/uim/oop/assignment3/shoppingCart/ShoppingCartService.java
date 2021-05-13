@@ -48,7 +48,15 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public ShoppingCartResponse addProductToCart(Long id, CartItemRequest item) {
+    public ShoppingCart addProductToCart(Long id, CartItemRequest item) {
+//        Product product = new Product();
+//        ProductResponse productResponse= this.productService.getProductById(item.getProductId());
+//        product.setId(productResponse.getId());
+//        product.setDescription(productResponse.getDescription());
+//        product.setPrice(productResponse.getPrice());
+//        product.setName(productResponse.getName());
+//        product.setUnit(productResponse.getUnit());
+//        product.setAmount(product.getAmount());
         Product product = this.productService.getProductById(item.getProductId());
         ShoppingCart cart = getShoppingCartById(id);
         if (cart.isPayed()) {
@@ -81,7 +89,7 @@ public class ShoppingCartService implements IShoppingCartService {
 
         product.setAmount(product.getAmount() - item.getAmount());
         this.shoppingCartRepository.save(cart);
-        return new ShoppingCartResponse(cart);
+        return cart;
 
 
     }
@@ -95,6 +103,7 @@ public class ShoppingCartService implements IShoppingCartService {
         int price = 0;
         for(CartItem item : cart.getShoppingList()){
             Product product = this.productService.getProductById(item.getProductId());
+            //ProductResponse productResponse = this.productService.getProductById(item.getProductId());
             price += product.getPrice()*item.getAmount();
         }
 
