@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CartItemRequest {
     private Long productId;
-    private Long amount;
+    private int amount;
 }

@@ -6,8 +6,6 @@ import sk.stuba.fei.uim.oop.assignment3.exceptions.BadQueryException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.product.IProductService;
 import sk.stuba.fei.uim.oop.assignment3.product.Product;
-import sk.stuba.fei.uim.oop.assignment3.product.ProductRepository;
-import sk.stuba.fei.uim.oop.assignment3.product.ProductResponse;
 
 import java.util.Optional;
 
@@ -49,14 +47,6 @@ public class ShoppingCartService implements IShoppingCartService {
 
     @Override
     public ShoppingCart addProductToCart(Long id, CartItemRequest item) {
-//        Product product = new Product();
-//        ProductResponse productResponse= this.productService.getProductById(item.getProductId());
-//        product.setId(productResponse.getId());
-//        product.setDescription(productResponse.getDescription());
-//        product.setPrice(productResponse.getPrice());
-//        product.setName(productResponse.getName());
-//        product.setUnit(productResponse.getUnit());
-//        product.setAmount(product.getAmount());
         Product product = this.productService.getProductById(item.getProductId());
         ShoppingCart cart = getShoppingCartById(id);
         if (cart.isPayed()) {
@@ -68,7 +58,7 @@ public class ShoppingCartService implements IShoppingCartService {
         boolean found = false;
         CartItem cartItem = new CartItem();
         for (CartItem ci : cart.getShoppingList()) {
-            if (ci.getProductId() == item.getProductId()) {
+            if (ci.getProductId().equals(item.getProductId())) {
                 found = true;
                 cartItem = ci;
             }
@@ -76,16 +66,14 @@ public class ShoppingCartService implements IShoppingCartService {
 
         if (found) {
             cartItem.setAmount(cartItem.getAmount() + item.getAmount());
-            this.cartItemsRepository.save(cartItem);
-
 
 
         } else {
             cartItem.setProductId(item.getProductId());
             cartItem.setAmount(item.getAmount());
             cart.getShoppingList().add(cartItem);
-            this.cartItemsRepository.save(cartItem);
         }
+        this.cartItemsRepository.save(cartItem);
 
         product.setAmount(product.getAmount() - item.getAmount());
         this.shoppingCartRepository.save(cart);
