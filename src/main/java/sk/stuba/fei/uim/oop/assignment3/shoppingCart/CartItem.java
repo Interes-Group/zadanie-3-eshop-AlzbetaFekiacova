@@ -19,6 +19,5 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-
     int amount;
 }
