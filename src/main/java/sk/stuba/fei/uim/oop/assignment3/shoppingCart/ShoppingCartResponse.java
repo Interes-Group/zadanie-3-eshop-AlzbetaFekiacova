@@ -7,13 +7,12 @@ import java.util.List;
 @Getter
 public class ShoppingCartResponse {
     private Long id;
+    private List<CartItem> shoppingList;
     private boolean payed;
-    private List<CartItem> items;
 
     public ShoppingCartResponse(ShoppingCart shoppingCart) {
         this.id = shoppingCart.getId();
+        this.shoppingList = shoppingCart.getShoppingList();
         this.payed = shoppingCart.isPayed();
-        this.items = shoppingCart.getShoppingList();
-
     }
 }

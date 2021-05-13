@@ -18,7 +18,7 @@ public class ProductService implements IProductService {
 
 
         Product product1 = new Product();
-        product1.setAmount(10);
+        product1.setAmount(10L);
         product1.setDescription("new");
         product1.setPrice(500.0);
         product1.setName("prvy");
@@ -28,7 +28,7 @@ public class ProductService implements IProductService {
 
 
         Product product2 = new Product();
-        product2.setAmount(10);
+        product2.setAmount(10L);
         product2.setDescription("new");
         product2.setPrice(500.0);
         product2.setName("druhy");

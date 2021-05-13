@@ -7,5 +7,5 @@ public interface IShoppingCartService {
 
     void deleteShoppingCartById(Long id);
 
-    void addProduct(Long id, CartItem item);
+    ShoppingCartResponse addProductToCart(Long id, CartItemRequest item);
 }

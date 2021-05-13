@@ -1,14 +1,15 @@
-package sk.stuba.fei.uim.oop.assignment3.product;
+package sk.stuba.fei.uim.oop.assignment3.shoppingCart;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Amount {
-    Long amount;
+public class CartItemRequest {
+    private Long productId;
+    private Long amount;
 }

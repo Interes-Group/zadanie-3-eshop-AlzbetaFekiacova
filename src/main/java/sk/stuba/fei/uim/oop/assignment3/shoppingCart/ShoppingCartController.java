@@ -28,8 +28,8 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/{id}/add")
-    public void addProduct(@PathVariable("id") Long id, @RequestBody CartItem item){
-        this.service.addProduct(id, item);
+    public ShoppingCartResponse addProductToCart(@PathVariable("id") Long id, @RequestBody CartItemRequest request) {
+        return this.service.addProductToCart(id, request);
     }
 
 }

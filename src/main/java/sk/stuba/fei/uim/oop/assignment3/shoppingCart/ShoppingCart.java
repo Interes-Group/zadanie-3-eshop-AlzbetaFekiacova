@@ -15,7 +15,7 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    boolean payed;
     @OneToMany
     private List<CartItem> shoppingList = new ArrayList<>();
+    boolean payed;
 }
