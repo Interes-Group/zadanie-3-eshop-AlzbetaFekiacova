@@ -22,7 +22,6 @@ public class ShoppingCartService implements IShoppingCartService {
     private IProductService productService;
 
 
-
     @Autowired
     public ShoppingCartService(ShoppingCartRepository repository) {
         this.shoppingCartRepository = repository;
@@ -52,69 +51,55 @@ public class ShoppingCartService implements IShoppingCartService {
     public ShoppingCartResponse addProductToCart(Long id, CartItemRequest item) {
         Product product = this.productService.getProductById(item.getProductId());
         ShoppingCart cart = getShoppingCartById(id);
-        if(cart.isPayed()){
+        if (cart.isPayed()) {
             throw new BadQueryException();
         }
-        if(product.getAmount() - item.getAmount() < 0){
+        if (product.getAmount() - item.getAmount() < 0) {
             throw new BadQueryException();
         }
         boolean found = false;
         CartItem cartItem = new CartItem();
-        for(CartItem ci: cart.getShoppingList()) {
+        for (CartItem ci : cart.getShoppingList()) {
             if (ci.getProductId() == item.getProductId()) {
                 found = true;
                 cartItem = ci;
             }
         }
 
-        if(found){
-        //if(cart.getShoppingList().contains(product)){
-            //int index = cart.getShoppingList().indexOf(product);
-
+        if (found) {
             cartItem.setAmount(cartItem.getAmount() + item.getAmount());
             this.cartItemsRepository.save(cartItem);
 
 
 
-
-
-            //cart.getShoppingList().get(cart.getShoppingList().indexOf(product)).setAmount(cart.getShoppingList().get(cart.getShoppingList().indexOf(product)).getAmount() + item.getAmount());
-        }
-        else {
+        } else {
             cartItem.setProductId(item.getProductId());
             cartItem.setAmount(item.getAmount());
             cart.getShoppingList().add(cartItem);
             this.cartItemsRepository.save(cartItem);
         }
 
-        product.setAmount(product.getAmount()- item.getAmount());
+        product.setAmount(product.getAmount() - item.getAmount());
         this.shoppingCartRepository.save(cart);
         return new ShoppingCartResponse(cart);
 
 
+    }
 
-//
-//        ShoppingCart shoppingCart = new ShoppingCart();
-//        shoppingCart.setId(cart.getId());
-//        shoppingCart.setPayed(cart.payed);
-//        shoppingCart.setShoppingList(cart.getShoppingList());
-          //this.shoppingCartRepository.save(cart);
+    @Override
+    public String payForShopping(Long id) {
+        ShoppingCart cart = this.getShoppingCartById(id);
+        if(cart.isPayed()){
+            throw new BadQueryException();
+        }
+        int price = 0;
+        for(CartItem item : cart.getShoppingList()){
+            Product product = this.productService.getProductById(item.getProductId());
+            price += product.getPrice()*item.getAmount();
+        }
 
-
-          //this.productRepository.save(product);
-
-        //return 0;
-//        CartItem cartItem = new CartItem();
-//        cartItem.setProductId(item.getProductId());
-//        cartItem.setAmount(item.getAmount());
-//        cart.getShoppingList().add(cartItem);
-//        this.shoppingCartRepository.save(cart);
-//        return new ShoppingCartResponse(cart);
-
-        //this.shoppingCartRepository.save(cart);
-        //this.productRepository.save(product);
-        //this.shoppingCartRepository.save(cart);
-
-
+        cart.setPayed(true);
+        this.shoppingCartRepository.save(cart);
+        return ""+price;
     }
 }

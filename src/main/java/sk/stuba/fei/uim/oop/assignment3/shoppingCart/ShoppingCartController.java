@@ -31,5 +31,9 @@ public class ShoppingCartController {
     public ShoppingCartResponse addProductToCart(@PathVariable("id") Long id, @RequestBody CartItemRequest request) {
         return this.service.addProductToCart(id, request);
     }
+    @GetMapping("/{id}/pay")
+    public String payForShopping(@PathVariable("id") Long id){
+        return this.service.payForShopping(id);
+    }
 
 }
