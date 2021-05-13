@@ -69,7 +69,7 @@ public class ProductService implements IProductService {
         if (updateBody.getName() != null) {
             product.setName(updateBody.getName());
         }
-        if(updateBody.getDescription() != null){
+        if (updateBody.getDescription() != null) {
             product.setDescription(updateBody.getDescription());
         }
 
@@ -87,9 +87,7 @@ public class ProductService implements IProductService {
     public Amount getProductAmount(Long id) {
         Optional<Product> optionalProduct = this.repository.findById(id);
         Product product = optionalProduct.orElseThrow(NotFoundException::new);
-        Amount a = new Amount();
-        a.setAmount(product.getAmount());
-        return a;
+        return new Amount(product.getAmount());
     }
 
     @Override

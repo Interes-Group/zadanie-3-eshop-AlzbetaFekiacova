@@ -49,10 +49,7 @@ public class ShoppingCartService implements IShoppingCartService {
     public ShoppingCart addProductToCart(Long id, CartItemRequest item) {
         Product product = this.productService.getProductById(item.getProductId());
         ShoppingCart cart = getShoppingCartById(id);
-        if (cart.isPayed()) {
-            throw new BadQueryException();
-        }
-        if (product.getAmount() - item.getAmount() < 0) {
+        if (cart.isPayed() || product.getAmount() - item.getAmount() < 0) {
             throw new BadQueryException();
         }
         boolean found = false;
@@ -61,6 +58,7 @@ public class ShoppingCartService implements IShoppingCartService {
             if (ci.getProductId().equals(item.getProductId())) {
                 found = true;
                 cartItem = ci;
+                break;
             }
         }
 
@@ -85,18 +83,17 @@ public class ShoppingCartService implements IShoppingCartService {
     @Override
     public String payForShopping(Long id) {
         ShoppingCart cart = this.getShoppingCartById(id);
-        if(cart.isPayed()){
+        if (cart.isPayed()) {
             throw new BadQueryException();
         }
-        int price = 0;
-        for(CartItem item : cart.getShoppingList()){
+        Double price = 0D;
+        for (CartItem item : cart.getShoppingList()) {
             Product product = this.productService.getProductById(item.getProductId());
-            //ProductResponse productResponse = this.productService.getProductById(item.getProductId());
-            price += product.getPrice()*item.getAmount();
+            price += product.getPrice() * item.getAmount();
         }
 
         cart.setPayed(true);
         this.shoppingCartRepository.save(cart);
-        return ""+price;
+        return price.toString();
     }
 }
