@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Getter
@@ -15,6 +17,9 @@ import javax.persistence.Id;
 @Entity
 public class CartItem {
     @Id
-    Long productId;
-    int amount;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private Long productId;
+    private int amount;
 }

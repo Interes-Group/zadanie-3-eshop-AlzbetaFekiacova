@@ -9,7 +9,7 @@ public interface IProductService {
     Product updateProduct(Long id, UpdateBody updateBody);
     void deleteProduct(Long id);
 
-    Amount getProductAmount(Long id);
+    int getProductAmount(Long id);
 
-    Amount incrementAmount(Long id, Amount amount);
+    int incrementAmount(Long id, AmountRequest amountRequest);
 }

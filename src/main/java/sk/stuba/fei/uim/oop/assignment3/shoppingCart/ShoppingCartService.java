@@ -74,7 +74,8 @@ public class ShoppingCartService implements IShoppingCartService {
         this.cartItemsRepository.save(cartItem);
 
         product.setAmount(product.getAmount() - item.getAmount());
-        this.shoppingCartRepository.save(cart);
+        //this.shoppingCartRepository.save(cart);
+        this.cartItemsRepository.save(cartItem);
         return cart;
 
 

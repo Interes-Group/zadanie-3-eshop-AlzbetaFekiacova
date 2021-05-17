@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Amount {
-    int amount;
+public class AmountRequest {
+    private int amount;
 }

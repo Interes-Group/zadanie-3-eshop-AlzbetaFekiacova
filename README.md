@@ -66,7 +66,7 @@ If the specification states that a 404 code should be returned, and the descript
 
 A detailed description of each operation is given in the API specification.
 
-The system allows adding and removing of products from the store's selection of goods. Furthermore, it allows editing of existing products as well as increase the amount of products in stock.
+The system allows adding and removing of products from the store's selection of goods. Furthermore, it allows editing of existing products as well as increase the amountRequest of products in stock.
 
 The system allows you to create and delete orders (shopping carts). It is possible to add products into orders in the specified quantity (if there is enough of the product in stock). The system also allows the payment of yet unpaid orders. It is not possible to add additional items to paid orders.
 

@@ -41,12 +41,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/amount")
-    public Amount getProductAmount(@PathVariable("id") Long id) {
-        return this.service.getProductAmount(id);
+    public AmountResponse getProductAmount(@PathVariable("id") Long id) {
+        return new AmountResponse(this.service.getProductAmount(id));
     }
 
     @PostMapping("/{id}/amount")
-    public Amount incrementAmount(@PathVariable("id") Long id, @RequestBody Amount amount) {
-        return this.service.incrementAmount(id, amount);
+    public AmountResponse incrementAmount(@PathVariable("id") Long id, @RequestBody AmountRequest amountRequest) {
+        return new AmountResponse(this.service.incrementAmount(id, amountRequest));
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class ShoppingCartController {
 
     @Autowired
-    IShoppingCartService service;
+    private IShoppingCartService service;
 
     @PostMapping
     public ResponseEntity<ShoppingCartResponse> addCart(){

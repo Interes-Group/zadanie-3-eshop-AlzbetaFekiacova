@@ -1,18 +1,23 @@
 package sk.stuba.fei.uim.oop.assignment3.shoppingCart;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
+@NoArgsConstructor
 public class ShoppingCartResponse {
     private Long id;
-    private List<CartItem> shoppingList;
+    private List<CartItemResponse> shoppingList = new ArrayList<>();
     private boolean payed;
+
 
     public ShoppingCartResponse(ShoppingCart shoppingCart) {
         this.id = shoppingCart.getId();
-        this.shoppingList = shoppingCart.getShoppingList();
+        this.shoppingList.addAll(shoppingCart.getShoppingList().stream().map(CartItemResponse::new).collect(Collectors.toList()));
         this.payed = shoppingCart.isPayed();
     }
 }
