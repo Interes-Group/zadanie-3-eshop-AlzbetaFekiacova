@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.assignment3.shoppingCart;
 
+import sk.stuba.fei.uim.oop.assignment3.cartItem.CartItemRequest;
+
 public interface IShoppingCartService {
     ShoppingCart create();
 

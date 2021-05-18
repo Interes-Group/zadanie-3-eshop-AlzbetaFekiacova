@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.shoppingCart;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sk.stuba.fei.uim.oop.assignment3.cartItem.CartItemResponse;
 
 import java.util.ArrayList;
 import java.util.List;

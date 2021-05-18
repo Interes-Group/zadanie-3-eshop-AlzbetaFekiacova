@@ -2,6 +2,9 @@ package sk.stuba.fei.uim.oop.assignment3.shoppingCart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.cartItem.CartItem;
+import sk.stuba.fei.uim.oop.assignment3.cartItem.CartItemRequest;
+import sk.stuba.fei.uim.oop.assignment3.cartItem.CartItemRepository;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.BadQueryException;
 import sk.stuba.fei.uim.oop.assignment3.exceptions.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.product.IProductService;
@@ -14,7 +17,7 @@ public class ShoppingCartService implements IShoppingCartService {
     private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
-    private CartItemsRepository cartItemsRepository;
+    private CartItemRepository cartItemsRepository;
 
     @Autowired
     private IProductService productService;
@@ -74,7 +77,7 @@ public class ShoppingCartService implements IShoppingCartService {
         this.cartItemsRepository.save(cartItem);
 
         product.setAmount(product.getAmount() - item.getAmount());
-        //this.shoppingCartRepository.save(cart);
+
         this.cartItemsRepository.save(cartItem);
         return cart;
 
